@@ -1,0 +1,56 @@
+{% include "header.html" %}
+
+  <!-- Page Header -->
+  <header class="masthead" 
+  style="background-image: url('{{ url_for('static', filename='img/login-bg.jpg')}}')">
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="page-heading">
+            <h1>Login</h1>
+            <span class="subheading">Login to post articles.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+        <form action="{{ url_for('login') }}" method="post">
+          
+          {{ form.csrf_token }}
+          <div class="control-group">
+            <div class="form-group controls">
+              {{ form.email.label }} {{ form.email() }}
+              <p class="help-block text-danger"></p>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <div class="form-group ">
+              {{ form.password.label }} <br> {{form.password(size=30) }} 
+            </div>
+            {% if error %}
+            <p class="help-block text-danger">{{ error }}</p>
+            {% endif %}
+            {% if form.password.errors %}
+              {% for error in form.password.errors %}
+                <p class="help-block text-danger">{{ error }}</p>
+              {% endfor %}
+            {% endif %}
+            <button class="btn btn-primary btn-block btn-large">
+          {{ form.submit }}
+        </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <hr>
+
+  {% include "footer.html" %}
